@@ -1,0 +1,161 @@
+
+1.Create a table EMPLOYEE have the
+following fields (emp_id, name,city,dob,adhar_no)
+
+
+mysql> CREATE TABLE EMPLOYEE(emp_id INT,name VARCHAR(20),city VARCHAR(20),dob DATE,adhaar_no INT(12));
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> DESC EMPLOYEE;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| emp_id    | int(11)     | YES  |     | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| city      | varchar(20) | YES  |     | NULL    |       |
+| dob       | date        | YES  |     | NULL    |       |
+| adhaar_no | int(12)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+2.Create a table STUDENT have the
+fields(roll_no, name, age, address, gender)and add following constraints on it.
+Roll_no – Primary key
+
+Name – does not allow null values
+Age- must be in between (0-99), does
+not allow null values
+Gender- default value is ‘m’
+
+
+mysql> CREATE TABLE STUDENT(ROLL_NO INT PRIMARY KEY,NAME VARCHAR(20) NOT NULL,AGE INT NOT NULL,GENDER CHAR DEFAULT 'M',CHECK(0<=AGE<100));
+Query OK, 0 rows affected (0.25 sec)
+
+mysql> DESC STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| ROLL_NO | int(11)     | NO   | PRI | NULL    |       |
+| NAME    | varchar(20) | NO   |     | NULL    |       |
+| AGE     | int(11)     | NO   |     | NULL    |       |
+| GENDER  | char(1)     | YES  |     | M       |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+3.Create a temporary table STUDENT1 of
+STUDENT relation.
+
+mysql> CREATE TEMPORARY TABLE STUDENT1 SELECT * FROM STUDENT;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT1;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| ROLL_NO | int(11)     | NO   |     | NULL    |       |
+| NAME    | varchar(20) | NO   |     | NULL    |       |
+| AGE     | int(11)     | NO   |     | NULL    |       |
+| GENDER  | char(1)     | YES  |     | M       |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+4.Create a duplicate table of EMPLOYEE
+
+mysql> CREATE TABLE IF NOT EXISTS EMPLOYEE1 SELECT * FROM EMPLOYEE;
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE1;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| emp_id    | int(11)     | YES  |     | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| city      | varchar(20) | YES  |     | NULL    |       |
+| dob       | date        | YES  |     | NULL    |       |
+| adhaar_no | int(12)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+5.Create an INVOICE database and having
+following tables.
+Customer(id, name, address, city, ph_no)
+Product(pid,  pname,
+price (default 0))
+Invoice_master(inv_id, cust_id(FK), inv_date)
+Invoice_item(inv_id
+(FK),  pid(FK), quantity)
+
+mysql> CREATE DATABASE INVOICE;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> USE INVOICE;
+Database changed
+mysql> CREATE TABLE CUSTOMER(ID INT PRIMARY KEY,ADDRESS VARCHAR(50),CITY VARCHAR(20),PH_NO INT(10));
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> DESC CUSTOMER;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| ID      | int(11)     | YES  | PRI | NULL    |       |
+| ADDRESS | varchar(50) | YES  |     | NULL    |       |
+| CITY    | varchar(20) | YES  |     | NULL    |       |
+| PH_NO   | int(10)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+mysql> CREATE TABLE PRODUCT(PID INT PRIMARY KEY,PNAME VARCHAR(20),PRICE INT DEFAULT 0); 
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> DESC PRODUCT;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| PID   | int(11)     | YES  | PRI | NULL    |       |
+| PNAME | varchar(20) | YES  |     | NULL    |       |
+| PRICE | int(11)     | YES  |     | 0       |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> CREATE TABLE INVOICE_MASTER(INV_ID INT PRIMARY KEY,CUST_ID INT,INV_DATE DATE, FOREIGN KEY(CUST_ID) REFERENCES CUSTOMER(ID));
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> DESC INVOICE_MASTER;
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| INV_ID   | int(11) | YES  | PRI | NULL    |       |
+| CUST_ID  | int(11) | YES  | MUL | NULL    |       |
+| INV_DATE | date    | YES  |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE INVOICE_ITEM(INV_ID INT,PID INT,QUANTITY INT, FOREIGN KEY(INV_ID) REFERENCES INVOICE_MASTER(INV_ID),FOREIGN KEY(PID) REFERENCES PRODUCT(PID));
+Query OK, 0 rows affected (0.41 sec)
+
+mysql> DESC INVOICE_ITEM;
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| INV_ID   | int(11) | YES  | MUL | NULL    |       |
+| PID      | int(11) | YES  | MUL | NULL    |       |
+| QUANTITY | int(11) | YES  |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
