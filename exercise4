@@ -1,0 +1,113 @@
+																EXPERIMENT 4
+																------------
+
+
+
+1. Update the price of a particular product.
+mysql> UPDATE PRODUCT SET PRICE =30 WHERE PID =1;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT *FROM PRODUCT;
++-----+---------+-------+
+| PID | PNAME   | PRICE |
++-----+---------+-------+
+|   1 | PEN     |    30 |
+|   2 | BOOK    |    75 |
+|   3 | UMBERLA |   200 |
+|   4 | BOX     |   100 |
+|   5 | OPIUM   |  4000 |
++-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+2.Change the name of city ‘CLT’ to ‘kozhikode’ in the customer table.
+
+mysql> UPDATE CUSTOMER SET CITY = 'KOZHIKODE' WHERE CITY ='CLT';
+Query OK, 2 rows affected (0.04 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT *FROM CUSTOMER;
++----+--------+---------+-----------+-------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO |
++----+--------+---------+-----------+-------+
+|  1 | SUGU   | KDY     | KDY       |  6268 |
+|  2 | SUNI   | TSY     | EKM       |  NULL |
+|  3 | MANU   | TSY     | TVM       |  NULL |
+|  4 | ARNOLD | KDY     | KOZHIKODE |  9562 |
+|  5 | ANU    | KDY     | KOZHIKODE |  9563 |
+|  6 | ANN    | KDY     | EKM       |  9563 |
++----+--------+---------+-----------+-------+
+6 rows in set (0.00 sec)
+
+
+3.Update all prices with 2% of its original price.
+
+
+mysql> UPDATE PRODUCT SET PRICE=PRICE*1.02;
+Query OK, 5 rows affected (0.04 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT *FROM PRODUCT;
++-----+---------+-------+
+| PID | PNAME   | PRICE |
++-----+---------+-------+
+|   1 | PEN     |    31 |
+|   2 | BOOK    |    77 |
+|   3 | UMBERLA |   204 |
+|   4 | BOX     |   102 |
+|   5 | OPIUM   |  4080 |
++-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+4.Change the address, city, phone number of a particular customer.
+
+mysql> UPDATE CUSTOMER SET ADDRESS='JDK',CITY='USA',PH_NO=1111 WHERE ID=1;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT *FROM CUSTOMER;
++----+--------+---------+-----------+-------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO |
++----+--------+---------+-----------+-------+
+|  1 | SUGU   | JDK     | USA       |  1111 |
+|  2 | SUNI   | TSY     | EKM       |  NULL |
+|  3 | MANU   | TSY     | TVM       |  NULL |
+|  4 | ARNOLD | KDY     | KOZHIKODE |  9562 |
+|  5 | ANU    | KDY     | KOZHIKODE |  9563 |
+|  6 | ANN    | KDY     | EKM       |  9563 |
++----+--------+---------+-----------+-------+
+6 rows in set (0.00 sec)
+
+
+
+5.Change the quantity of a purchased product of inv_id ‘101’
+
+
+mysql> UPDATE INVOICE_ITEM SET QUANTITY=20 WHERE INV_ID=101;
+Query OK, 2 rows affected (0.04 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT *FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|    101 |    1 |       20 |
+|    101 |    3 |       20 |
+|    102 |    4 |        2 |
+|    102 |    5 |        1 |
+|    103 |    5 |        1 |
+|    104 |    2 |        4 |
+|    105 |    2 |        6 |
+|    106 |    3 |        6 |
+|    107 |    4 |       10 |
+|    108 |    1 |       20 |
++--------+------+----------+
+10 rows in set (0.00 sec)
+
+
+
+
+
+
