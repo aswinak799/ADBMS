@@ -4,7 +4,7 @@
 
 
 1. Update the price of a particular product.
-mysql> UPDATE PRODUCT SET PRICE =30 WHERE PID =1;
+mysql> UPDATE PRODUCT SET PRICE =30 WHERE PID =1;  //MENTION THE PRODUCT NAME LIKE 'PEN'
 Query OK, 1 row affected (0.08 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
@@ -85,7 +85,7 @@ mysql> SELECT *FROM CUSTOMER;
 5.Change the quantity of a purchased product of inv_id ‘101’
 
 
-mysql> UPDATE INVOICE_ITEM SET QUANTITY=20 WHERE INV_ID=101;
+mysql> UPDATE INVOICE_ITEM SET QUANTITY=20 WHERE INV_ID=101;  //PRODUCT ID NEEDED IN CONDITION
 Query OK, 2 rows affected (0.04 sec)
 Rows matched: 2  Changed: 2  Warnings: 0
 
@@ -111,3 +111,4 @@ mysql> SELECT *FROM INVOICE_ITEM;
 
 
 
+//CORRECT THE QUERIES
