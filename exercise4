@@ -4,7 +4,11 @@ EXPERIMENT NO:4  DML UPDATE COMMAND
 
 
 1. Update the price of a particular product.
+<<<<<<< HEAD
 mysql> UPDATE PRODUCT SET PRICE =30 WHERE PNAME=PEN;
+=======
+mysql> UPDATE PRODUCT SET PRICE =30 WHERE PID =1;  //MENTION THE PRODUCT NAME LIKE 'PEN'
+>>>>>>> d9db2ce32e8109a3d1212647ab4a6c279fc2f501
 Query OK, 1 row affected (0.08 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
@@ -85,9 +89,15 @@ mysql> SELECT *FROM CUSTOMER;
 5.Change the quantity of a purchased product of inv_id ‘101’
 
 
+<<<<<<< HEAD
 mysql> UPDATE INVOICE_ITEM SET QUANTITY=25 WHERE INV_ID=101 AND PID=3;
 Query OK, 1 row affected (0.04 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
+=======
+mysql> UPDATE INVOICE_ITEM SET QUANTITY=20 WHERE INV_ID=101;  //PRODUCT ID NEEDED IN CONDITION
+Query OK, 2 rows affected (0.04 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+>>>>>>> d9db2ce32e8109a3d1212647ab4a6c279fc2f501
 
 mysql> SELECT *FROM INVOICE_ITEM;
 +--------+------+----------+
@@ -108,3 +118,4 @@ mysql> SELECT *FROM INVOICE_ITEM;
 
 
 
+//CORRECT THE QUERIES
