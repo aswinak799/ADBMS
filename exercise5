@@ -1,0 +1,220 @@
+Experiment No:5 DML COMMAND-DELETE
+----------------------------------
+
+
+1. Delete the record of customer id ‘1’
+
+mysql> DELETE FROM CUSTOMER WHERE ID=6;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT * FROM CUSTOMER;
++----+--------+---------+-----------+-------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO |
++----+--------+---------+-----------+-------+
+|  1 | SUGU   | JDK     | USA       |  1111 |
+|  2 | SUNI   | TSY     | EKM       |  NULL |
+|  3 | MANU   | TSY     | TVM       |  NULL |
+|  4 | ARNOLD | KDY     | KOZHIKODE |  9562 |
+|  5 | ANU    | KDY     | KOZHIKODE |  9563 |
++----+--------+---------+-----------+-------+
+5 rows in set (0.00 sec)
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+2. Delete all purchase details of items its quantity less than 2
+
+
+mysql> DELETE FROM INVOICE_ITEM WHERE QUANTITY<2;
+Query OK, 2 rows affected (0.08 sec)
+
+mysql> SELECT * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|    101 |    1 |       20 |
+|    101 |    3 |       20 |
+|    102 |    4 |        2 |
+|    104 |    2 |        4 |
+|    105 |    2 |        6 |
+|    106 |    3 |        6 |
+|    107 |    4 |       10 |
+|    108 |    1 |       20 |
++--------+------+----------+
+8 rows in set (0.01 sec)
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+3. Delete the purchase details of product ‘pen’ in the in_id ‘101’.
+
+mysql> DELETE FROM INVOICE_ITEM WHERE INV_ID =101
+    -> AND PID =1;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|    101 |    3 |       20 |
+|    102 |    4 |        2 |
+|    104 |    2 |        4 |
+|    105 |    2 |        6 |
+|    106 |    3 |        6 |
+|    107 |    4 |       10 |
+|    108 |    1 |       20 |
++--------+------+----------+
+7 rows in set (0.00 sec)
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+4. Delete details of employees who does not have phone number.
+
+mysql> DELETE FROM CUSTOMER WHERE PH_NO IS NULL;
+Query OK, 2 rows affected (0.11 sec)
+
+mysql> SELECT * FROM CUSTOMER;
++----+--------+---------+-----------+-------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO |
++----+--------+---------+-----------+-------+
+|  1 | SUGU   | JDK     | USA       |  1111 |
+|  4 | ARNOLD | KDY     | KOZHIKODE |  9562 |
+|  5 | ANU    | KDY     | KOZHIKODE |  9563 |
++----+--------+---------+-----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+5. Delete all records from STUDENT table
+
+mysql> select *from STUDENT;
++---------+--------+------+--------+
+| ROLL_NO | NAME   | AGE  | GENDER |
++---------+--------+------+--------+
+|       1 | ANU    |   12 | F      |
+|       2 | ANAND  |   12 | F      |
+|       3 | ANANDU |   12 | M      |
+|       4 | PRIYA  |   12 | F      |
+|       5 | ARUN   |   12 | M      |
++---------+--------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM STUDENT WHERE AGE=12;
+Query OK, 5 rows affected (0.07 sec)
+
+mysql> select *from STUDENT;
+Empty set (0.00 sec)
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+6.Delete Invoice details of a particular customer.
+
+
+mysql> SELECT *FROM INVOICE_MASTER;
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|    101 |       1 | 2021-12-25 |
+|    102 |       4 | 2021-12-26 |
+|    103 |       1 | 2022-01-15 |
+|    104 |       4 | 2022-02-16 |
+|    105 |       5 | 2022-02-16 |
+|    106 |       4 | 2022-02-28 |
+|    107 |       1 | 2022-04-10 |
+|    108 |       4 | 2022-04-15 |
++--------+---------+------------+
+8 rows in set (0.00 sec)
+
+
+mysql> SELECT *FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|    101 |    3 |       25 |
+|    102 |    4 |        2 |
+|    104 |    2 |        4 |
+|    105 |    2 |        6 |
+|    106 |    3 |        6 |
+|    107 |    4 |       10 |
+|    108 |    1 |       20 |
++--------+------+----------+
+7 rows in set (0.00 sec)
+
+mysql> DELETE FROM INVOICE_ITEM WHERE INV_ID=105;
+
+Query OK, 1 row affected (0.03 sec)
+mysql> SELECT *FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|    101 |    3 |       25 |
+|    102 |    4 |        2 |
+|    104 |    2 |        4 |
+|    106 |    3 |        6 |
+|    107 |    4 |       10 |
+|    108 |    1 |       20 |
++--------+------+----------+
+6 rows in set (0.00 sec)
+
+
+mysql> DELETE FROM INVOICE_MASTER WHERE CUST_ID =5;
+Query OK, 1 row affected (0.04 sec)
+
+
+mysql> SELECT *FROM INVOICE_MASTER;
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|    101 |       1 | 2021-12-25 |
+|    102 |       4 | 2021-12-26 |
+|    103 |       1 | 2022-01-15 |
+|    104 |       4 | 2022-02-16 |
+|    106 |       4 | 2022-02-28 |
+|    107 |       1 | 2022-04-10 |
+|    108 |       4 | 2022-04-15 |
++--------+---------+------------+
+7 rows in set (0.00 sec)
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+7.Delete  the first two records of INVOICE_ITEM TABLE IT PURCHASES quantity is high
+mysql> SELECT *FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|    101 |    3 |       25 |
+|    102 |    4 |        2 |
+|    104 |    2 |        4 |
+|    106 |    3 |        6 |
+|    107 |    4 |       10 |
+|    108 |    1 |       20 |
++--------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> DELETE from INVOICE_ITEM order by QUANTITY DESC LIMIT 2;
+Query OK, 2 rows affected (0.03 sec)
+
+mysql> SELECT *FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|    102 |    4 |        2 |
+|    104 |    2 |        4 |
+|    106 |    3 |        6 |
+|    107 |    4 |       10 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+
+
