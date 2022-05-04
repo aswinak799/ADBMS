@@ -1,0 +1,292 @@
+EXPERIMENT NO.6 SELECT QUERY
+----------------------------
+
+1.List all customer details.
+
+
+mysql> SELECT * FROM CUSTOMER;
++----+--------+---------+-----------+-------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO |
++----+--------+---------+-----------+-------+
+|  1 | SUGU   | JDK     | USA       |  1111 |
+|  4 | ARNOLD | KDY     | KOZHIKODE |  9562 |
+|  5 | ANU    | KDY     | KOZHIKODE |  9563 |
++----+--------+---------+-----------+-------+
+3 rows in set (0.00 sec)
+
+
+
+
+2.List pname, price of all products.
+mysql> SELECT DISTINCT PNAME,PRICE FROM PRODUCT;
++---------+-------+
+| PNAME   | PRICE |
++---------+-------+
+| PEN     |    31 |
+| BOOK    |    77 |
+| UMBERLA |   204 |
+| BOX     |   102 |
+| OPIUM   |  4080 |
++---------+-------+
+5 rows in set (0.00 sec)
+
+
+3.List all invoice items, avoid duplicates
+mysql> SELECT PID FROM INVOICE_ITEM;
++------+
+| PID  |
++------+
+|    2 |
+|    3 |
+|    4 |
+|    4 |
++------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT PID FROM INVOICE_ITEM;
++------+
+| PID  |
++------+
+|    2 |
+|    3 |
+|    4 |
++------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+4.List product price between 50rs and 150rs
+
+mysql> SELECT * FROM PRODUCT;
++-----+---------+-------+
+| PID | PNAME   | PRICE |
++-----+---------+-------+
+|   1 | PEN     |    31 |
+|   2 | BOOK    |    77 |
+|   3 | UMBERLA |   204 |
+|   4 | BOX     |   102 |
+|   5 | OPIUM   |  4080 |
++-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> SELECT * FROM PRODUCT WHERE PRICE BETWEEN 50 AND 150;
++-----+-------+-------+
+| PID | PNAME | PRICE |
++-----+-------+-------+
+|   2 | BOOK  |    77 |
+|   4 | BOX   |   102 |
++-----+-------+-------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+5.List the customer details who lives in ‘ekm’,’tvm’.
+
+
+
+mysql> SELECT * FROM CUSTOMER WHERE CITY IN('TVM','EKM');
++----+------+---------+------+-------+
+| ID | NAME | ADDRESS | CITY | PH_NO |
++----+------+---------+------+-------+
+| 11 | ANN  | KKD     | EKM  |  5522 |
+| 12 | ARUN | KKD     | EKM  |  2522 |
+| 13 | ARJU | ABC     | TVM  |  2562 |
++----+------+---------+------+-------+
+3 rows in set (0.00 sec)
+
+6.List the invoice details from 1st January 2021 to 31st march
+2021
+
+
+mysql> SELECT * FROM INVOICE_MASTER WHERE INV_DATE BETWEEN '2022/01/01' AND '2022/03/31';
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|    103 |       1 | 2022-01-15 |
+|    104 |       4 | 2022-02-16 |
+|    106 |       4 | 2022-02-28 |
++--------+---------+------------+
+3 rows in set (0.00 sec)
+
+
+7.List the customer details who not live in ‘tvm’
+
+
+mysql> SELECT *FROM  CUSTOMER WHERE CITY != 'TVM';
++----+--------+---------+-----------+-------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO |
++----+--------+---------+-----------+-------+
+|  1 | SUGU   | JDK     | USA       |  1111 |
+|  4 | ARNOLD | KDY     | KOZHIKODE |  9562 |
+|  5 | ANU    | KDY     | KOZHIKODE |  9563 |
+| 11 | ANN    | KKD     | EKM       |  5522 |
+| 12 | ARUN   | KKD     | EKM       |  2522 |
+| 16 | YARD   | GOA     | GOA       |  8562 |
++----+--------+---------+-----------+-------+
+6 rows in set (0.00 sec)
+
+
+
+8.List the customers who have no phone number
+  
+
+
+mysql> SELECT *FROM  CUSTOMER WHERE PH_NO IS NULL;
++----+--------+---------+-----------+-------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO |
++----+--------+---------+-----------+-------+
+|  4 | ARNOLD | KDY     | KOZHIKODE |  NULL |
+|  5 | ANU    | KDY     | KOZHIKODE |  NULL |
++----+--------+---------+-----------+-------+
+2 rows in set (0.00 sec)
+
+
+
+
+9.Display customer names in descending order
+
+
+mysql> SELECT * FROM CUSTOMER ORDER BY  NAME  DESC;
++----+--------+---------+-----------+-------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO |
++----+--------+---------+-----------+-------+
+| 16 | YARD   | GOA     | GOA       |  8562 |
+|  1 | SUGU   | JDK     | USA       |  1111 |
+| 12 | ARUN   | KKD     | EKM       |  2522 |
+|  4 | ARNOLD | KDY     | KOZHIKODE |  NULL |
+| 13 | ARJU   | ABC     | TVM       |  2562 |
+|  5 | ANU    | KDY     | KOZHIKODE |  NULL |
+| 11 | ANN    | KKD     | EKM       |  5522 |
++----+--------+---------+-----------+-------+
+7 rows in set (0.00 sec)
+
+
+
+10.Display the customer details sorted in ascending by city and descending by names.
+
+
+mysql> SELECT * FROM CUSTOMER ORDER BY CITY  ASC;
++----+--------+---------+-----------+-------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO |
++----+--------+---------+-----------+-------+
+| 11 | ANN    | KKD     | EKM       |  5522 |
+| 12 | ARUN   | KKD     | EKM       |  2522 |
+| 16 | YARD   | GOA     | GOA       |  8562 |
+|  4 | ARNOLD | KDY     | KOZHIKODE |  NULL |
+|  5 | ANU    | KDY     | KOZHIKODE |  NULL |
+| 13 | ARJU   | ABC     | TVM       |  2562 |
+|  1 | SUGU   | JDK     | USA       |  1111 |
++----+--------+---------+-----------+-------+
+7 rows in set (0.00 sec)
+
+
+mysql> SELECT * FROM CUSTOMER ORDER BY  NAME  DESC;
++----+--------+---------+-----------+-------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO |
++----+--------+---------+-----------+-------+
+| 16 | YARD   | GOA     | GOA       |  8562 |
+|  1 | SUGU   | JDK     | USA       |  1111 |
+| 12 | ARUN   | KKD     | EKM       |  2522 |
+|  4 | ARNOLD | KDY     | KOZHIKODE |  NULL |
+| 13 | ARJU   | ABC     | TVM       |  2562 |
+|  5 | ANU    | KDY     | KOZHIKODE |  NULL |
+| 11 | ANN    | KKD     | EKM       |  5522 |
++----+--------+---------+-----------+-------+
+7 rows in set (0.00 sec)
+
+
+
+
+11.Find the customer names start with ‘A’.
+
+mysql> SELECT NAME  FROM CUSTOMER WHERE NAME LIKE 'A%';
++--------+
+| NAME   |
++--------+
+| ARNOLD |
+| ANU    |
+| ANN    |
+| ARUN   |
+| ARJU   |
++--------+
+5 rows in set (0.00 sec)
+
+
+
+12.   
+Find
+the customer names who have ‘e’ or ‘a’ in them.
+
+mysql> SELECT NAME  FROM CUSTOMER WHERE NAME LIKE '%E%' OR NAME LIKE  '%A%';
++--------+
+| NAME   |
++--------+
+| ARNOLD |
+| ANU    |
+| EDGE   |
+| ANN    |
+| ARUN   |
+| ARJU   |
+| YARD   |
++--------+
+7 rows in set (0.01 sec)
+
+
+13.   
+Find
+the customer names who have at least 3 characters.
+mysql> SELECT NAME  FROM CUSTOMER WHERE NAME LIKE '___';
++------+
+| NAME |
++------+
+| ANU  |
+| ANN  |
++------+
+2 rows in set (0.01 sec)
+
+
+14.   
+List
+the names of customers their names have ‘r’ in second position.
+
+mysql> SELECT NAME  FROM CUSTOMER WHERE NAME LIKE '_R%';
++--------+
+| NAME   |
++--------+
+| ARNOLD |
+| ARUN   |
+| ARJU   |
++--------+
+3 rows in set (0.00 sec)
+
+
+
+15.   
+Find
+the customer names start with ‘a’ and are at least 3 characters in length.
+
+
+mysql> SELECT NAME  FROM CUSTOMER WHERE NAME LIKE 'A__%';
++--------+
+| NAME   |
++--------+
+| ARNOLD |
+| ANU    |
+| ANN    |
+| ARUN   |
+| ARJU   |
++--------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+
+
