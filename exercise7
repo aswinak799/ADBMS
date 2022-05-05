@@ -1,0 +1,129 @@
+DML- SELECT QUERY 2 (GROUP BY, AGGREGATE FUNCTIONS)
+----------------------------------------------------
+
+1. List product name, price except soap on price order.
+
+mysql> SELECT *FROM PRODUCT;
++-----+---------+-------+
+| PID | PNAME   | PRICE |
++-----+---------+-------+
+|   1 | PEN     |    31 |
+|   2 | BOOK    |    77 |
+|   3 | UMBERLA |   204 |
+|   4 | BOX     |   102 |
+|   5 | OPIUM   |  4080 |
+|  20 | SOAP    |    40 |
++-----+---------+-------+
+6 rows in set (0.00 sec)
+
+
+mysql> SELECT PNAME,PRICE FROM PRODUCT WHERE PNAME !='SOAP' ORDER BY PRICE;
++---------+-------+
+| PNAME   | PRICE |
++---------+-------+
+| PEN     |    31 |
+| BOOK    |    77 |
+| BOX     |   102 |
+| UMBERLA |   204 |
+| OPIUM   |  4080 |
++---------+-------+
+5 rows in set (0.00 sec)
+
+
+
+
+2. Find minimum, maximum and average price of products.
+
+
+
+mysql> SELECT MIN(PRICE),MAX(PRICE),AVG(PRICE) FROM PRODUCT ;
++------------+------------+------------+
+| MIN(PRICE) | MAX(PRICE) | AVG(PRICE) |
++------------+------------+------------+
+|         31 |       4080 |   755.6667 |
++------------+------------+------------+
+1 row in set (0.00 sec)
+
+
+
+
+3.Find number of customers in each city.
+
+
+
+mysql> SELECT *FROM CUSTOMER;
++----+--------+---------+-----------+-------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO |
++----+--------+---------+-----------+-------+
+|  1 | SUGU   | JDK     | USA       |  1111 |
+|  4 | ARNOLD | KDY     | KOZHIKODE |  NULL |
+|  5 | ANU    | KDY     | KOZHIKODE |  NULL |
+|  7 | EDGE   | TVM     | TVM       |   555 |
+| 11 | ANN    | KKD     | EKM       |  5522 |
+| 12 | ARUN   | KKD     | EKM       |  2522 |
+| 13 | ARJU   | ABC     | TVM       |  2562 |
+| 16 | YARD   | GOA     | GOA       |  8562 |
++----+--------+---------+-----------+-------+
+8 rows in set (0.00 sec)
+
+
+
+
+mysql> SELECT CITY, COUNT(ID) FROM CUSTOMER GROUP BY CITY;
++-----------+-----------+
+| CITY      | COUNT(ID) |
++-----------+-----------+
+| EKM       |         2 |
+| GOA       |         1 |
+| KOZHIKODE |         2 |
+| TVM       |         2 |
+| USA       |         1 |
++-----------+-----------+
+5 rows in set (0.00 sec)
+
+
+
+4. Find number of customers in each city, only include city with more than 3 customers.
+
+mysql> SELECT *FROM CUSTOMER;
++----+--------+---------+------+-------+
+| ID | NAME   | ADDRESS | CITY | PH_NO |
++----+--------+---------+------+-------+
+|  1 | SUGU   | JDK     | USA  |  1111 |
+|  4 | ARNOLD | KDY     | EKM  |  NULL |
+|  5 | ANU    | KDY     | EKM  |  NULL |
+|  7 | EDGE   | TVM     | TVM  |   555 |
+| 11 | ANN    | KKD     | EKM  |  5522 |
+| 12 | ARUN   | KKD     | EKM  |  2522 |
+| 13 | ARJU   | ABC     | TVM  |  2562 |
+| 16 | YARD   | GOA     | GOA  |  8562 |
++----+--------+---------+------+-------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT CITY, COUNT(ID) FROM CUSTOMER GROUP BY CITY HAVING COUNT(ID)>3;
++------+-----------+
+| CITY | COUNT(ID) |
++------+-----------+
+| EKM  |         4 |
++------+-----------+
+1 row in set (0.00 sec)
+
+
+5. Show data as displayed ‘who, where’ Eg: ‘customer1 lives in ekm’.
+
+mysql> SELECT CONCAT(NAME, "  LIVES IN  " ,CITY) AS CUST_INFO FROM CUSTOMER;
++-----------------------+
+| CUST_INFO             |
++-----------------------+
+| SUGU  LIVES IN  USA   |
+| ARNOLD  LIVES IN  EKM |
+| ANU  LIVES IN  EKM    |
+| EDGE  LIVES IN  TVM   |
+| ANN  LIVES IN  EKM    |
+| ARUN  LIVES IN  EKM   |
+| ARJU  LIVES IN  TVM   |
+| YARD  LIVES IN  GOA   |
++-----------------------+
+8 rows in set (0.00 sec)
+
+
