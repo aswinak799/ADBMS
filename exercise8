@@ -1,0 +1,130 @@
+1. List the customer names of invoice date 15 JAN 2022.
+
+mysql> select NAME FROM CUSTOMER WHERE ID IN (SELECT CUST_ID FROM  INVOICE_MASTER WHERE INV_DATE='2022-01-15');
++------+
+| NAME |
++------+
+| SUGU |
++------+
+1 row in set (0.00 sec)
+
+
+
+2. List the product name and price of each invoice item.
+
+
+
+mysql> select * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|    102 |    4 |        2 |
+|    104 |    2 |        4 |
+|    106 |    3 |        6 |
+|    107 |    4 |       10 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+
+mysql> select * FROM PRODUCT;
++-----+---------+-------+
+| PID | PNAME   | PRICE |
++-----+---------+-------+
+|   1 | PEN     |    31 |
+|   2 | BOOK    |    77 |
+|   3 | UMBERLA |   204 |
+|   4 | BOX     |   102 |
+|   5 | OPIUM   |  4080 |
+|  20 | SOAP    |    40 |
++-----+---------+-------+
+6 rows in set (0.00 sec)
+
+
+mysql> SELECT PNAME ,PRICE FROM PRODUCT WHERE PID IN (SELECT PID FROM INVOICE_ITEM);
++---------+-------+
+| PNAME   | PRICE |
++---------+-------+
+| BOOK    |    77 |
+| UMBERLA |   204 |
+| BOX     |   102 |
++---------+-------+
+3 rows in set (0.04 sec)
+
+
+
+
+3. List the product names, only include their purchased quantity more than 3.
+
+mysql> SELECT PNAME  FROM PRODUCT WHERE PID IN (SELECT PID FROM INVOICE_ITEM WHERE QUANTITY > 3);
++---------+
+| PNAME   |
++---------+
+| BOOK    |
+| UMBERLA |
+| BOX     |
++---------+
+3 rows in set (0.00 sec)
+
+
+
+
+4. Find the product that has no sale.
+
+
+mysql> SELECT PNAME  FROM PRODUCT WHERE PID NOT IN (SELECT PID FROM INVOICE_ITEM);
++-------+
+| PNAME |
++-------+
+| PEN   |
+| OPIUM |
+| SOAP  |
++-------+
+3 rows in set (0.00 sec)
+
+
+
+
+5. List the customer names who purchased the items ‘BOOK’ and ‘BOX’.
+
+
+
+mysql> SELECT NAME FROM CUSTOMER WHERE ID IN (SELECT CUST_ID FROM INVOICE_MASTER WHERE INV_ID IN (SELECT INV_ID FROM INVOICE_ITEM WHERE PID IN (SELECT PID FROM PRODUCT WHERE PNAME='BOOK' OR  (SELECT PID FROM PRODUCT WHERE PNAME ='BOX'))) ); 
++--------+
+| NAME   |
++--------+
+| SUGU   |
+| ARNOLD |
++--------+
+
+
+
+
+
+6. Display the purchased product details of the customer ’ARNOLD’.
+
+
+mysql> SELECT * FROM PRODUCT WHERE PID IN (SELECT PID FROM INVOICE_ITEM WHERE INV_ID IN(SELECT INV_ID FROM INVOICE_MASTER WHERE CUST_ID IN (SELECT ID FROM CUSTOMER WHERE NAME='ARNOLD')));
++-----+---------+-------+
+| PID | PNAME   | PRICE |
++-----+---------+-------+
+|   4 | BOX     |   102 |
+|   2 | BOOK    |    77 |
+|   3 | UMBERLA |   204 |
++-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+7. List the names of all customers who have purchased at least 2 products, make sure that no duplicate names in the result.
+
+mysql> SELECT NAME FROM CUSTOMER WHERE ID IN(SELECT CUST_ID FROM INVOICE_MASTER WHERE INV_ID IN(SELECT INV_ID FROM INVOICE_ITEM GROUP BY INV_ID HAVING COUNT(INV_ID)>=2));
++--------+
+| NAME   |
++--------+
+| ARNOLD |
+| EDGE   |
++--------+
+2 rows in set (0.00 sec)
+
+
+
