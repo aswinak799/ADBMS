@@ -171,7 +171,7 @@ mysql> SELECT * FROM CUSTOMER ORDER BY  NAME  DESC;
 10.Display the customer details sorted in ascending by city and descending by names.
 
 
-<<<<<<< HEAD
+
 mysql> SELECT * FROM CUSTOMER  ORDER BY NAME DESC ,CITY ASC;
 +----+--------+---------+------+-------+
 | ID | NAME   | ADDRESS | CITY | PH_NO |
@@ -186,22 +186,6 @@ mysql> SELECT * FROM CUSTOMER  ORDER BY NAME DESC ,CITY ASC;
 | 11 | ANN    | KKD     | EKM  |  5522 |
 +----+--------+---------+------+-------+
 8 rows in set (0.00 sec)
-=======
-mysql> SELECT * FROM CUSTOMER ORDER BY CITY  ASC;  //WRONG
-+----+--------+---------+-----------+-------+
-| ID | NAME   | ADDRESS | CITY      | PH_NO |
-+----+--------+---------+-----------+-------+
-| 11 | ANN    | KKD     | EKM       |  5522 |
-| 12 | ARUN   | KKD     | EKM       |  2522 |
-| 16 | YARD   | GOA     | GOA       |  8562 |
-|  4 | ARNOLD | KDY     | KOZHIKODE |  NULL |
-|  5 | ANU    | KDY     | KOZHIKODE |  NULL |
-| 13 | ARJU   | ABC     | TVM       |  2562 |
-|  1 | SUGU   | JDK     | USA       |  1111 |
-+----+--------+---------+-----------+-------+
-7 rows in set (0.00 sec)
-
->>>>>>> 682f59812113803002a9ce1fe098177044ec3805
 
 
 
@@ -293,4 +277,4 @@ mysql> SELECT NAME  FROM CUSTOMER WHERE NAME LIKE 'A__%';
 
 
 
-//CORRECTION
+
