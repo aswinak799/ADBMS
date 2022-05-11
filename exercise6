@@ -274,7 +274,7 @@ mysql> SELECT NAME  FROM CUSTOMER WHERE NAME LIKE 'A__%';
 
 
 
-
+//VERIFIED
 
 
 
