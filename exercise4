@@ -103,3 +103,4 @@ mysql> SELECT *FROM INVOICE_ITEM;
 +--------+------+----------+
 7 rows in set (0.00 sec)
 
+//VERIFIED
