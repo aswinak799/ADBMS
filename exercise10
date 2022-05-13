@@ -1,0 +1,55 @@
+Create
+a view for customers who have purchased products
+
+
+
+mysql> CREATE VIEW CUSTOMER_PURCHASE AS SELECT CUSTOMER.NAME,PRODUCT.PNAME FROM CUSTOMER INNER JOIN INVOICE_MASTER ON CUSTOMER.ID=INVOICE_MASTER.CUST_ID INNER JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID INNER JOIN PRODUCT ON INVOICE_ITEM.PID=PRODUCT.PID;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SELECT * FROM CUSTOMER_PURCHASE;
++--------+---------+
+| NAME   | PNAME   |
++--------+---------+
+| ARNOLD | BOX     |
+| EDGE   | BOOK    |
+| ARNOLD | UMBERLA |
+| SUGU   | BOX     |
+| ARNOLD | BOOK    |
+| ARNOLD | UMBERLA |
+| EDGE   | PEN     |
++--------+---------+
+7 rows in set (0.00 sec)
+
+
+2.      
+Create
+a view for invoice products[cname, , inv_id, product_id, quantity]
+
+
+mysql> CREATE VIEW INVOICE_PRODUCT AS SELECT CUSTOMER.NAME,INVOICE_MASTER.INV_ID,INVOICE_ITEM.PID,INVOICE_ITEM.QUANTITY FROM CUSTOMER LEFT JOIN INVOICE_MASTER ON CUSTOMER.ID=INVOICE_MASTER.CUST_ID LEFT JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SELECT * FROM INVOICE_PRODUCT;
++--------+--------+------+----------+
+| NAME   | INV_ID | PID  | QUANTITY |
++--------+--------+------+----------+
+| ARNOLD |    102 |    4 |        2 |
+| EDGE   |    104 |    2 |        4 |
+| ARNOLD |    106 |    3 |        6 |
+| SUGU   |    107 |    4 |       10 |
+| ARNOLD |    102 |    2 |        4 |
+| ARNOLD |    102 |    3 |        4 |
+| EDGE   |    104 |    1 |        4 |
+| SUGU   |    101 | NULL |     NULL |
+| SUGU   |    103 | NULL |     NULL |
+| ARNOLD |    108 | NULL |     NULL |
+| ANU    |   NULL | NULL |     NULL |
+| ANN    |   NULL | NULL |     NULL |
+| ARUN   |   NULL | NULL |     NULL |
+| ARJU   |   NULL | NULL |     NULL |
+| YARD   |   NULL | NULL |     NULL |
++--------+--------+------+----------+
+15 rows in set (0.00 sec)
+
+mysql> 
+
