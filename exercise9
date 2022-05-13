@@ -1,0 +1,140 @@
+1.      
+List
+the product name and quantity of invoice items.
+
+
+
+mysql> SELECT  PRODUCT.PNAME,INVOICE_ITEM.QUANTITY FROM PRODUCT INNER JOIN INVOICE_ITEM ON PRODUCT.PID=INVOICE_ITEM.PID;
++---------+----------+
+| PNAME   | QUANTITY |
++---------+----------+
+| BOX     |        2 |
+| BOOK    |        4 |
+| UMBERLA |        6 |
+| BOX     |       10 |
+| BOOK    |        4 |
+| UMBERLA |        4 |
+| PEN     |        4 |
++---------+----------+
+7 rows in set (0.00 sec)
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+2.      
+Display
+invoice details of the transaction dated ’31-01-2022’.
+
+mysql> SELECT * FROM CUSTOMER;                                                                                                               +----+--------+---------+------+-------+
+| ID | NAME   | ADDRESS | CITY | PH_NO |
++----+--------+---------+------+-------+
+|  1 | SUGU   | JDK     | USA  |  1111 |
+|  4 | ARNOLD | KDY     | EKM  |  NULL |
+|  5 | ANU    | KDY     | EKM  |  NULL |
+|  7 | EDGE   | TVM     | TVM  |   555 |
+| 11 | ANN    | KKD     | EKM  |  5522 |
+| 12 | ARUN   | KKD     | EKM  |  2522 |
+| 13 | ARJU   | ABC     | TVM  |  2562 |
+| 16 | YARD   | GOA     | GOA  |  8562 |
++----+--------+---------+------+-------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM INVOICE_MASTER;                                                                                                         +--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|    101 |       1 | 2021-12-25 |
+|    102 |       4 | 2021-12-26 |
+|    103 |       1 | 2022-01-15 |
+|    104 |       7 | 2022-02-16 |
+|    106 |       4 | 2022-02-28 |
+|    107 |       1 | 2022-04-10 |
+|    108 |       4 | 2022-04-15 |
++--------+---------+------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PRODUCT;                                                                                                                +-----+---------+-------+
+| PID | PNAME   | PRICE |
++-----+---------+-------+
+|   1 | PEN     |    31 |
+|   2 | BOOK    |    77 |
+|   3 | UMBERLA |   204 |
+|   4 | BOX     |   102 |
+|   5 | OPIUM   |  4080 |
+|  20 | SOAP    |    40 |
++-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM INVOICE_ITEM;                                                                                                           +--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|    102 |    4 |        2 |
+|    104 |    2 |        4 |
+|    106 |    3 |        6 |
+|    107 |    4 |       10 |
+|    102 |    2 |        4 |
+|    102 |    3 |        4 |
+|    104 |    1 |        4 |
++--------+------+----------+
+7 rows in set (0.00 sec)
+
+
+
+mysql> SELECT CUSTOMER.NAME,PRODUCT.PNAME,INVOICE_ITEM.QUANTITY FROM CUSTOMER INNER JOIN INVOICE_MASTER ON CUSTOMER.ID=INVOICE_MASTER.CUST_ID INNER JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID INNER JOIN PRODUCT ON PRODUCT.PID=INVOICE_ITEM.PID WHERE INV_DATE='2022-02-16';
++------+-------+----------+
+| NAME | PNAME | QUANTITY |
++------+-------+----------+
+| EDGE | BOOK  |        4 |
+| EDGE | PEN   |        4 |
++------+-------+----------+
+2 rows in set (0.01 sec)
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+3.      
+Display
+the customer name, product name, invoice date of purchased item ‘pen’.
+
+mysql> SELECT CUSTOMER.NAME,PRODUCT.PNAME,INVOICE_MASTER.INV_DATE FROM CUSTOMER INNER JOIN INVOICE_MASTER ON CUSTOMER.ID=INVOICE_MASTER.CUST_ID INNER JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID INNER JOIN PRODUCT ON PRODUCT.PID=INVOICE_ITEM.PID WHERE PNAME='PEN'; 
++------+-------+------------+
+| NAME | PNAME | INV_DATE   |
++------+-------+------------+
+| EDGE | PEN   | 2022-02-16 |
++------+-------+------------+
+1 row in set (0.00 sec)
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+4.      
+Display
+all customer details and invoice details must include customer has not
+purchased items.
+
+mysql> SELECT CUSTOMER.NAME,PRODUCT.PNAME,INVOICE_ITEM.QUANTITY,INVOICE_MASTER.INV_ID,INVOICE_MASTER.INV_DATE FROM CUSTOMER LEFT JOIN INVOICE_MASTER ON CUSTOMER.ID=INVOICE_MASTER.CUST_ID LEFT JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID LEFT JOIN PRODUCT ON PRODUCT.PID=INVOICE_ITEM.PID;
++--------+---------+----------+--------+------------+
+| NAME   | PNAME   | QUANTITY | INV_ID | INV_DATE   |
++--------+---------+----------+--------+------------+
+| ARNOLD | BOX     |        2 |    102 | 2021-12-26 |
+| EDGE   | BOOK    |        4 |    104 | 2022-02-16 |
+| ARNOLD | UMBERLA |        6 |    106 | 2022-02-28 |
+| SUGU   | BOX     |       10 |    107 | 2022-04-10 |
+| ARNOLD | BOOK    |        4 |    102 | 2021-12-26 |
+| ARNOLD | UMBERLA |        4 |    102 | 2021-12-26 |
+| EDGE   | PEN     |        4 |    104 | 2022-02-16 |
+| SUGU   | NULL    |     NULL |    101 | 2021-12-25 |
+| SUGU   | NULL    |     NULL |    103 | 2022-01-15 |
+| ARNOLD | NULL    |     NULL |    108 | 2022-04-15 |
+| ANU    | NULL    |     NULL |   NULL | NULL       |
+| ANN    | NULL    |     NULL |   NULL | NULL       |
+| ARUN   | NULL    |     NULL |   NULL | NULL       |
+| ARJU   | NULL    |     NULL |   NULL | NULL       |
+| YARD   | NULL    |     NULL |   NULL | NULL       |
++--------+---------+----------+--------+------------+
+15 rows in set (0.00 sec)
+
+
+
+
