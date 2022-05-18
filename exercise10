@@ -1,3 +1,5 @@
+ex: No??????????????/
+
 Create
 a view for customers who have purchased products
 
@@ -53,3 +55,4 @@ mysql> SELECT * FROM INVOICE_PRODUCT;
 
 mysql> 
 
+//VERIFIED
