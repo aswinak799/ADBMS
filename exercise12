@@ -20,18 +20,37 @@ Give insert and select privilege to Spider  on customer table in the invoice dat
 mysql> GRANT select,insert on CUSTOMER TO Spider@'localhost';
 Query OK, 0 rows affected (0.00 sec)
 
+mysql> SHOW GRANTS FOR Spider@'localhost';
++----------------------------------------------------------------------+
+| Grants for Spider@localhost                                          |
++----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'Spider'@'localhost'                           |
+| GRANT SELECT, INSERT ON `INVOICE`.`CUSTOMER` TO 'Spider'@'localhost' |
++----------------------------------------------------------------------+
+
+
 
 Give update and delete privilege to thor  on all tables in the invoice database.
 
 mysql> GRANT update,delete on *.* TO thor@'localhost';
 Query OK, 0 rows affected (0.00 sec)
 
+mysql> SHOW GRANTS FOR thor@'localhost';
++-----------------------------------------------------------+
+| Grants for thor@localhost                                 |
++-----------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'thor'@'localhost'                  |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO 'thor'@'localhost' |
++-----------------------------------------------------------+
+
+
+
 
 
 2. REVOKE
 Remove delete privilege of thor.
 
-mysql> revoke all on *.* from thor@'localhost';
+mysql> revoke delete on *.* from thor@'localhost';
 Query OK, 0 rows affected (0.00 sec)
 
 mysql> 
