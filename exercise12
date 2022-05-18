@@ -1,0 +1,38 @@
+12. DCL COMMAND
+---------------
+
+Create two users Spider, thor
+
+mysql> create user Spider@'localhost' identified by '1234';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create user thor@'localhost' identified by '1234';
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+
+
+
+1. GRANT
+Give insert and select privilege to Spider  on customer table in the invoice database.
+
+mysql> GRANT select,insert on CUSTOMER TO Spider@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+
+Give update and delete privilege to thor  on all tables in the invoice database.
+
+mysql> GRANT update,delete on *.* TO thor@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+2. REVOKE
+Remove delete privilege of thor.
+
+mysql> revoke all on *.* from thor@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+
