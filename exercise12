@@ -17,7 +17,7 @@ Query OK, 0 rows affected (0.00 sec)
 1. GRANT
 Give insert and select privilege to Spider  on customer table in the invoice database.
 
-mysql> GRANT select,insert on CUSTOMER TO Spider@'localhost';
+mysql> grant insert,select on INVOICE.CUSTOMER TO Spider@'localhost';
 Query OK, 0 rows affected (0.00 sec)
 
 mysql> SHOW GRANTS FOR Spider@'localhost';
@@ -32,7 +32,7 @@ mysql> SHOW GRANTS FOR Spider@'localhost';
 
 Give update and delete privilege to thor  on all tables in the invoice database.
 
-mysql> GRANT update,delete on *.* TO thor@'localhost';
+mysql> grant update,delete on INVOICE.* TO thor@'localhost';
 Query OK, 0 rows affected (0.00 sec)
 
 mysql> SHOW GRANTS FOR thor@'localhost';
@@ -55,3 +55,4 @@ Query OK, 0 rows affected (0.00 sec)
 
 mysql> 
 
+//VERIFIED-CHECK CORRECTION
