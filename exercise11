@@ -1,0 +1,86 @@
+Optimising database (Using Set, arithmetic, logical and special operators)
+--------------------------------------------------------------------------
+
+1.Display customer_id ,city who lives either in clt and trivandrum.(using set operation)
+
+mysql> select * from CUSTOMER;
++----+--------+---------+------+-------+
+| ID | NAME   | ADDRESS | CITY | PH_NO |
++----+--------+---------+------+-------+
+|  1 | SUGU   | JDK     | USA  |  1111 |
+|  4 | ARNOLD | KDY     | EKM  |  NULL |
+|  5 | ANU    | KDY     | EKM  |  NULL |
+|  7 | EDGE   | TVM     | TVM  |   555 |
+| 11 | ANN    | KKD     | EKM  |  5522 |
+| 12 | ARUN   | KKD     | EKM  |  2522 |
+| 13 | ARJU   | ABC     | TVM  |  2562 |
+| 16 | YARD   | GOA     | GOA  |  8562 |
+| 20 | ALEN   | MKM     | KKD  |  1569 |
++----+--------+---------+------+-------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT ID,CITY FROM CUSTOMER WHERE CITY='EKM' UNION SELECT ID,CITY FROM CUSTOMER WHERE CITY='TVM';
++----+------+
+| ID | CITY |
++----+------+
+|  4 | EKM  |
+|  5 | EKM  |
+| 11 | EKM  |
+| 12 | EKM  |
+|  7 | TVM  |
+| 13 | TVM  |
++----+------+
+6 rows in set (0.00 sec)
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+2.Display product details with an updated price amount(new price= old price+5rs)
+
+
+mysql> SELECT PID,PNAME,PRICE,PRICE+5 AS "NEW_PRICE" FROM PRODUCT;
++-----+---------+-------+-----------+
+| PID | PNAME   | PRICE | NEW_PRICE |
++-----+---------+-------+-----------+
+|   1 | PEN     |    31 |        36 |
+|   2 | BOOK    |    77 |        82 |
+|   3 | UMBERLA |   204 |       209 |
+|   4 | BOX     |   102 |       107 |
+|   5 | OPIUM   |  4080 |      4085 |
+|  20 | SOAP    |    40 |        45 |
++-----+---------+-------+-----------+
+6 rows in set (0.00 sec)
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+3.Display customer details who doesn’t have phone number and lives in ‘EKM’ city (use logical operators)
+
+
+mysql> SELECT * FROM CUSTOMER WHERE CITY="EKM" AND PH_NO IS NULL;
++----+--------+---------+------+-------+
+| ID | NAME   | ADDRESS | CITY | PH_NO |
++----+--------+---------+------+-------+
+|  4 | ARNOLD | KDY     | EKM  |  NULL |
+|  5 | ANU    | KDY     | EKM  |  NULL |
++----+--------+---------+------+-------+
+2 rows in set (0.00 sec)
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+4.List the product names if it finds any records in the invoice items table has quantity =10 (use special operators)
+
+
+mysql> SELECT PNAME FROM PRODUCT WHERE PID IN(SELECT PID FROM INVOICE_ITEM WHERE QUANTITY=10);
++-------+
+| PNAME |
+
++-------+
+| BOX   |
++-------+
+1 row in set (0.01 sec)
+
+
