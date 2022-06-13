@@ -1,3 +1,5 @@
+EXPERIMENT NO:14 PL/SQL PROGRAMS- STORED PROCEDURES 
+-----------------------------------
 1.Create a procedure to display all tables in the invoice database.
 
 mysql> delimiter sanan
@@ -5,69 +7,22 @@ mysql> delimiter sanan
 
 mysql> create procedure invoice_table() 
 	-> begin
-	-> select *from CUSTOMER;
-	-> select *from INVOICE_MASTER;
-	-> select *from INVOICE_ITEM;
-	-> select *from PRODUCT;
+	-> show tables;
 	-> end
 	-> sanan
 Query OK, 0 rows affected (0.00 sec)
 
 mysql> call invoice_table sanan
-+----+--------+---------+------+-------+
-| ID | NAME   | ADDRESS | CITY | PH_NO |
-+----+--------+---------+------+-------+
-|  1 | SUGU   | JDK     | USA  |  1111 |
-|  4 | ARNOLD | KDY     | EKM  |  NULL |
-|  5 | ANU    | KDY     | EKM  |  NULL |
-|  7 | EDGE   | TVM     | TVM  |   555 |
-| 11 | ANN    | KKD     | EKM  |  5522 |
-| 12 | ARUN   | KKD     | EKM  |  2522 |
-| 13 | ARJU   | ABC     | TVM  |  2562 |
-| 16 | YARD   | GOA     | GOA  |  8562 |
-| 20 | ALEN   | MKM     | KKD  |  1569 |
-+----+--------+---------+------+-------+
-9 rows in set (0.00 sec)
-
-+--------+---------+------------+
-| INV_ID | CUST_ID | INV_DATE   |
-+--------+---------+------------+
-|    101 |       1 | 2021-12-25 |
-|    102 |       4 | 2021-12-26 |
-|    103 |       1 | 2022-01-15 |
-|    104 |       7 | 2022-02-16 |
-|    106 |       4 | 2022-02-28 |
-|    107 |       1 | 2022-04-10 |
-|    108 |       4 | 2022-04-15 |
-+--------+---------+------------+
-7 rows in set (0.00 sec)
-
-+--------+------+----------+
-| INV_ID | PID  | QUANTITY |
-+--------+------+----------+
-|    102 |    4 |        2 |
-|    104 |    2 |        4 |
-|    106 |    3 |        6 |
-|    107 |    4 |       10 |
-|    102 |    2 |        4 |
-|    102 |    3 |        4 |
-|    104 |    1 |        4 |
-+--------+------+----------+
-7 rows in set (0.00 sec)
-
-+-----+---------+-------+
-| PID | PNAME   | PRICE |
-+-----+---------+-------+
-|   1 | PEN     |    31 |
-|   2 | BOOK    |    77 |
-|   3 | UMBERLA |   204 |
-|   4 | BOX     |   102 |
-|   5 | OPIUM   |  4080 |
-|  20 | SOAP    |    40 |
-+-----+---------+-------+
-6 rows in set (0.00 sec)
-
-Query OK, 0 rows affected (0.00 sec)
++-------------------+
+| Tables_in_INVOICE |
++-------------------+
+| CUSTOMER          |
+| CUST_bck          |
+| INVOICE_ITEM      |
+| INVOICE_MASTER    |
+| PRODUCT           |
++-------------------+
+5 rows in set (0.00 sec)
 
 
 2.Create a procedure to find greatest of 3 numbers.
@@ -107,7 +62,7 @@ Query OK, 0 rows affected (0.00 sec)
 mysql> create procedure invdetails()
     -> begin
     -> 
-    -> select CUSTOMER.NAME,PRODUCT.PNAME,INVOICE_MASTER.INV_DATE,INVOICE_ITEM.QUANTITY FROM PRODUCT INNER JOIN INVOICE_ITEM ON 		PRODUCT.PID=INVOICE_ITEM.PID INNER JOIN INVOICE_MASTER ON INVOICE_ITEM.INV_ID=INVOICE_MASTER.INV_ID INNER JOIN CUSTOMER ON INVOICE_MASTER.CUST_ID=CUSTOMER.ID WHERE CUSTOMER.NAME='EDGE';
+    -> select CUSTOMER.NAME,PRODUCT.PNAME,INVOICE_MASTER.INV_DATE,INVOICE_ITEM.QUANTITY FROM PRODUCT INNER JOIN INVOICE_ITEM ON PRODUCT.PID=INVOICE_ITEM.PID INNER JOIN INVOICE_MASTER ON INVOICE_ITEM.INV_ID=INVOICE_MASTER.INV_ID INNER JOIN CUSTOMER ON INVOICE_MASTER.CUST_ID=CUSTOMER.ID WHERE CUSTOMER.NAME='EDGE';
     -> 
     -> end //
 Query OK, 0 rows affected (0.01 sec)
