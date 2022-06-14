@@ -79,7 +79,20 @@ config  0.000GB
 local   0.000GB
 > 
 
-//RESTORE COMMAND??
+//RESTORE COMMAND
+ubuntu@aswin:~$ mongorestore ~/mongo_bck/first_backup
+2022-06-14T19:44:10.216+0530	preparing collections to restore from
+2022-06-14T19:44:10.216+0530	reading metadata for invoice.CUSTOMER from /home/ubuntu/mongo_bck/first_backup/invoice/CUSTOMER.metadata.json
+2022-06-14T19:44:10.216+0530	reading metadata for invoice.PRODUCT from /home/ubuntu/mongo_bck/first_backup/invoice/PRODUCT.metadata.json
+2022-06-14T19:44:10.223+0530	restoring invoice.PRODUCT from /home/ubuntu/mongo_bck/first_backup/invoice/PRODUCT.bson
+2022-06-14T19:44:10.224+0530	no indexes to restore
+2022-06-14T19:44:10.224+0530	finished restoring invoice.PRODUCT (5 documents, 0 failures)
+2022-06-14T19:44:10.228+0530	restoring invoice.CUSTOMER from /home/ubuntu/mongo_bck/first_backup/invoice/CUSTOMER.bson
+2022-06-14T19:44:10.229+0530	no indexes to restore
+2022-06-14T19:44:10.229+0530	finished restoring invoice.CUSTOMER (4 documents, 0 failures)
+2022-06-14T19:44:10.229+0530	9 document(s) restored successfully. 0 document(s) failed to restore.
+
+
 > show dbs
 admin    0.000GB
 config   0.000GB
