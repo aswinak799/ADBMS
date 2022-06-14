@@ -1,0 +1,120 @@
+EXPERIMENT NO.21 NoSQL – ADMINISTRATION
+=======================================
+
+
+`````````````````````````````````````````````````````````````````````````````````````````````````````
+1.Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database.
+=====================================================================================================
+
+> db.createUser({user:"CUSTOMER1",pwd:"1234",roles:[{role:"read",db:"invoice"}]})
+Successfully added user: {
+	"user" : "CUSTOMER1",
+	"roles" : [
+		{
+			"role" : "read",
+			"db" : "invoice"
+		}
+	]
+}
+
+
+`````````````````````````````````````````````````````````````````````````````````````````````````````
+2.Write a MongoDB query to create the backup for the INVOICE database.
+=====================================================================================================
+
+
+
+ubuntu@aswin:~$ mkdir mongo_bck
+ubuntu@aswin:~$ cd mongo_bck
+ubuntu@aswin:~/mongo_bck$ mongodump -d invoice -o ~/mongo_bck/first_backup
+2022-06-14T19:35:19.746+0530	writing invoice.CUSTOMER to /home/ubuntu/mongo_bck/first_backup/invoice/CUSTOMER.bson
+2022-06-14T19:35:19.746+0530	writing invoice.PRODUCT to /home/ubuntu/mongo_bck/first_backup/invoice/PRODUCT.bson
+2022-06-14T19:35:19.746+0530	done dumping invoice.PRODUCT (5 documents)
+2022-06-14T19:35:19.747+0530	done dumping invoice.CUSTOMER (4 documents)
+ubuntu@aswin:~/mongo_bck$ ls
+first_backup
+ubuntu@aswin:~/mongo_bck$ ls -l first_backup
+total 4
+drwxrwxr-x 2 ubuntu ubuntu 4096 Jun 14 19:35 invoice
+ubuntu@aswin:~/mongo_bck$ cd ./first_backup/invoice
+ubuntu@aswin:~/mongo_bck/first_backup/invoice$ ls -l
+total 16
+-rw-rw-r-- 1 ubuntu ubuntu 336 Jun 14 19:35 CUSTOMER.bson
+-rw-rw-r-- 1 ubuntu ubuntu 164 Jun 14 19:35 CUSTOMER.metadata.json
+-rw-rw-r-- 1 ubuntu ubuntu 265 Jun 14 19:35 PRODUCT.bson
+-rw-rw-r-- 1 ubuntu ubuntu 163 Jun 14 19:35 PRODUCT.metadata.json
+
+
+
+ubuntu@aswin:~/mongo_bck/first_backup/invoice$ tree ~/mongo_bck
+/home/ubuntu/mongo_bck
+└── first_backup
+    └── invoice
+        ├── CUSTOMER.bson
+        ├── CUSTOMER.metadata.json
+        ├── PRODUCT.bson
+        └── PRODUCT.metadata.json
+
+2 directories, 4 files
+
+
+
+> show dbs
+admin    0.000GB
+config   0.000GB
+invoice  0.000GB
+local    0.000GB
+> use invoice
+switched to db invoice
+> show collections
+CUSTOMER
+PRODUCT
+> db.dropDatabase();
+{ "dropped" : "invoice", "ok" : 1 }
+
+
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+> 
+
+
+> show dbs
+admin    0.000GB
+config   0.000GB
+invoice  0.000GB
+local    0.000GB
+> 
+
+
+
+
+
+
+`````````````````````````````````````````````````````````````````````````
+3.Write a MongoDB query to restore a particular database or a collection.
+=========================================================================
+
+Droping collection PRODUCT and then we need to restore it agian
+
+> db.PRODUCT.drop()
+true
+> show collections
+CUSTOMER
+
+ubuntu@aswin:~$ mongorestore --db invoice --collection PRODUCT ~/mongo_bck/first_backup/invoice/PRODUCT.bson
+2022-06-14T19:56:53.617+0530	checking for collection data in /home/ubuntu/mongo_bck/first_backup/invoice/PRODUCT.bson
+2022-06-14T19:56:53.618+0530	reading metadata for invoice.PRODUCT from /home/ubuntu/mongo_bck/first_backup/invoice/PRODUCT.metadata.json
+2022-06-14T19:56:53.633+0530	restoring invoice.PRODUCT from /home/ubuntu/mongo_bck/first_backup/invoice/PRODUCT.bson
+2022-06-14T19:56:53.695+0530	no indexes to restore
+2022-06-14T19:56:53.695+0530	finished restoring invoice.PRODUCT (5 documents, 0 failures)
+2022-06-14T19:56:53.695+0530	5 document(s) restored successfully. 0 document(s) failed to restore.
+
+> show collections
+CUSTOMER
+PRODUCT
+
+collection 'PRODUCT'  has restored
+
+
