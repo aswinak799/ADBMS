@@ -1,0 +1,73 @@
+EXPRIMENT NO.20 NoSQL – AGGREGATE FUNCTIONS AND REGULAR EXPRESSIONS
+===================================================================
+
+
+1.Write a MongoDB query to sort customer details in ascending order of their name.
+==================================================================================
+
+> db.CUSTOMER.find().sort({Name:1}).pretty()
+{
+	"_id" : ObjectId("62a84a1ee3a5c123091c3b4f"),
+	"Name" : "Captain Marval",
+	"City" : "TVM",
+	"PhNo" : 8900787867,
+	"Age" : 26
+}
+{
+	"_id" : ObjectId("62a84a4be3a5c123091c3b50"),
+	"Name" : "Iron man",
+	"City" : "EKM",
+	"PhNo" : 8900787868,
+	"Age" : 25
+}
+{
+	"_id" : ObjectId("62a82f76c4d1000a187dd839"),
+	"Name" : "Krishna",
+	"City" : "Calicut",
+	"PhNo" : 8900787866,
+	"Age" : 32
+}
+{
+	"_id" : ObjectId("62a82fa4c4d1000a187dd83b"),
+	"Name" : "Tony stark",
+	"City" : "USA",
+	"PhNo" : 8900787865,
+	"Age" : 30
+}
+{
+	"_id" : ObjectId("62a82f94c4d1000a187dd83a"),
+	"Name" : "peter parker",
+	"City" : "USA",
+	"PhNo" : 8900787861,
+	"Age" : 28
+}
+
+
+``````````````````````````````````````````````````````````````````````````````````
+2.Write a MongoDB query to count number of customers in each city.
+=================================================================================
+
+> db.CUSTOMER.aggregate([{$group:{_id:"$City",total:{$sum:1}}}])
+{ "_id" : "Calicut", "total" : 1 }
+{ "_id" : "TVM", "total" : 1 }
+{ "_id" : "EKM", "total" : 1 }
+{ "_id" : "USA", "total" : 2 }
+> 
+
+
+
+`````````````````````````````````````````````````````````````````````````````````
+3.Write a MongoDB query to find minimum and maximum age in each city
+=================================================================================
+
+
+> db.CUSTOMER.aggregate([{$group:{_id:"$City",Min_Age:{$min:"$Age"},Max_Age:{$max:"$Age"}}}])
+{ "_id" : "EKM", "Min_Age" : 25, "Max_Age" : 25 }
+{ "_id" : "Calicut", "Min_Age" : 32, "Max_Age" : 32 }
+{ "_id" : "TVM", "Min_Age" : 26, "Max_Age" : 26 }
+{ "_id" : "USA", "Min_Age" : 28, "Max_Age" : 30 }
+> 
+
+
+
+
